@@ -1,5 +1,3 @@
-
-
 .dropdownmenu > div > p {
     font-size: 15px;
     line-height: 10px;
@@ -11,11 +9,6 @@
     border-bottom: solid 1px gray;
 
 }
-.menu3 {
-    position: relative;
-    left: -14px;
-}
-
 .menu2,.menu3 {
     cursor: pointer;
 }
@@ -24,5 +17,5 @@
 .h-6 {
     width: 20px;
     position: relative;
-    top: 3px
+    top: 4px
 }

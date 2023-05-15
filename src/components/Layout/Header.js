@@ -17,7 +17,7 @@ box-shadow: 0 4px 10px -3px black
 const HeaderTitle = styled.h1`
 display: inline-block;
 position:relative;
-left:-38vw;
+left:7vw;
 line-height: 7vh;
 margin:0px;
 padding:0px;
@@ -32,16 +32,16 @@ height:30px;
 cursor: pointer;
 `
 const HeaderIcon = styled.div`
-display: inline-block;
 position: relative;
-top: 12px;
-right: -35vw;
+top: -60px;
+left: 90vw;
+bottom:55px;
 `
- const MouseOver = styled.div`
+const MouseOver = styled.div`
 border-radius: 20px;
 position: relative;
-left: 88vw;
-top: 0px;
+left: 87vw;
+bottom: 50px;
 width: 170px;
 height: 150px;
 box-shadow: 0 4px 10px -3px black
@@ -60,9 +60,9 @@ return(
     <>
     <HeaderDiv>
        <HeaderTitle><Logo src={process.env.PUBLIC_URL + `Image/로고.jpeg`}
-       onClick={()=>{navigate('/'); MouseClick()}}
+       onClick={()=>{navigate('/')}}
        />  COZ Shopping</HeaderTitle>
-       <HeaderIcon><Bars3Icon width={'40px'} onClick={()=>{
+       <HeaderIcon><Bars3Icon width={'50px'} onClick={()=>{
         MouseClick()
        }}/></HeaderIcon>
        {
