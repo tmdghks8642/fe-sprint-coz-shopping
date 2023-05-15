@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import {Bars3Icon, GiftIcon, StarIcon} from '@heroicons/react/24/solid'
 import { useState } from 'react';
 
-const HeaderDiv = styled.div`
+const HeaderDiv = styled.header`
 position: sticky;
 top: 0px;
 margin:0px;
@@ -57,7 +57,7 @@ const MouseClick =()=>{
 }
 
 return(
-    <Header>
+    <>
     <HeaderDiv>
        <HeaderTitle><Logo src={process.env.PUBLIC_URL + `Image/로고.jpeg`}
        onClick={()=>{navigate('/'); MouseClick()}}
@@ -79,7 +79,7 @@ return(
        </MouseOver> : null
        }
     </HeaderDiv>
-    </Header>
+    </>
 )
 }
 
