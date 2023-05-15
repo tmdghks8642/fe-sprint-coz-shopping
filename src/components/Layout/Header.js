@@ -1,10 +1,8 @@
 import './header.css'
 import { styled } from "styled-components"
-import { Routes,Route } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import {Bars3Icon, GiftIcon, StarIcon} from '@heroicons/react/24/solid'
 import { useState } from 'react';
-import Bookmark from '../../pages/Bookmark'
 
 const HeaderDiv = styled.div`
 position: sticky;
