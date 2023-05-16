@@ -58,9 +58,8 @@ return (
         </ProductsList>
 
         <BookmarkList>
-        <BookmarkListTitle>북마크 리스트</BookmarkListTitle>
+            <BookmarkListTitle>북마크 리스트</BookmarkListTitle>
         </BookmarkList>
-
     </Mainpage>
 )
 }

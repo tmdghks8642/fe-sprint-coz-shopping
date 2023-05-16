@@ -14,13 +14,11 @@ color: gray;
 function Footer (){
 return(
     <>
-    <FooterDiv>
-        <Footertitle>개인정보 처리방침 | 이용 약관</Footertitle>
-        <Footertitle>All rights reserved @ Codestates</Footertitle>
-    </FooterDiv>
-
+        <FooterDiv>
+            <Footertitle>개인정보 처리방침 | 이용 약관</Footertitle>
+            <Footertitle>All rights reserved @ Codestates</Footertitle>
+        </FooterDiv>
     </>
-)
-}
+)}
  
 export default Footer
