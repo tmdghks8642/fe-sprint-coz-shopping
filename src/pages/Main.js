@@ -34,7 +34,7 @@ const BookmarkListTitle = styled(ProductsListTitle)`
 
 
 function Main (){
-const [item,SetItem] = useState()
+const [item,SetItem] = useState([])
 
     useEffect(()=>{
     fetch('http://cozshopping.codestates-seb.link/api/v1/products?count=4')
@@ -58,9 +58,8 @@ return (
                     <ProductsListTitle>상품 리스트</ProductsListTitle>
                         <ProductItems>
                             {
-                                item&&item.map((el,idx)=> <ProductItem item={item} idx={idx}/>)
+                                item&&item.map((el,idx)=> <ProductItem key={el.id} keys={el.id} item={item} idx={idx}/>)
                             }
-            
                         </ProductItems>
                 </ProductsList>
 

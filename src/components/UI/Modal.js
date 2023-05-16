@@ -16,13 +16,13 @@ position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%,-20%);
-width: 70rem;
-height: 35rem;
+width: 50rem;
+height: 30rem;
 border-radius: 30px;
-background-color: white;
-background-image: url(${props => props.isUrl});
+background-image: url(${props => props.itemimage});
 background-size: 100%;
 background-repeat: no-repeat;
+background-position: center;
 z-index: 2;
 `
 
@@ -30,22 +30,43 @@ const IconDiv = styled.div`
 position: absolute;
 width: 40px;
 height: 30px;
-left: 1050px;
-top: 10px;
+left: 730px;
+top: 20px;
 font-weight: 700;
 color: white;
 cursor: pointer;
 `
 
-function Modal({openModal,isUrl}){
+const ItemTitle = styled.div`
+position: absolute;
+top: 400px;
+right: 100px;
+width: 40rem;
+color: white;
+font-size: 40px;
+font-weight: 700;
+`
+
+
+function Modal({openModal,keys,item}){
+
+let itemObj = (item.filter(el=> el.id === keys)[0]) 
+
 
 return(
     <>
         <BackgroundDiv onClick={()=>{openModal(false)}}/>
-        <ModalDiv isUrl={isUrl}>
+            <ModalDiv itemimage={
+                itemObj.image_url !== null ? itemObj.image_url : itemObj.brand_image_url
+            }>
         <IconDiv>
             <XMarkIcon onClick={()=>{openModal(false)}}/>
         </IconDiv>
+            <ItemTitle>
+                {
+                itemObj.title !== null ? itemObj.title : itemObj.brand_name
+                }
+            </ItemTitle>
         </ModalDiv>
     </>
 )

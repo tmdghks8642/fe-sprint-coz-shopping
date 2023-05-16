@@ -5,6 +5,7 @@ text-align: center;
 height: 7vh;
 width: 100vw;
 border-top: 1px solid gray;
+padding: 10px 0 10px 0;
 `
 const Footertitle = styled.p`
 margin: 10px;

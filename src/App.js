@@ -9,6 +9,7 @@ import Modal from './components/UI/Modal';
 
 function App() {
   return (
+  <>  
     <div className="App">
       <Header/>
         <Routes>
@@ -18,6 +19,7 @@ function App() {
         </Routes>
       <Footer/>
     </div>
+  </>
   );
 }
 
