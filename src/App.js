@@ -5,6 +5,7 @@ import Footer from './components/Layout/Footer';
 import Main from './pages/Main'
 import Bookmark from './pages/Bookmark';
 import ProductList from './pages/ProductList';
+import Modal from './components/UI/Modal';
 
 function App() {
   return (

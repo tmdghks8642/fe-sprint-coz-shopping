@@ -37,10 +37,10 @@ position: relative;
 top: -60px;
 left: 90vw;
 bottom:55px;
+cursor: pointer;
 `
 const MouseOver = styled.div`
 border-radius: 20px;
-position: relative;
 left: 87vw;
 bottom: 50px;
 width: 170px;
