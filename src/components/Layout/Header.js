@@ -11,7 +11,7 @@ margin:0px;
 padding:0px;
 width: 100vw;
 height:7vh;
-box-shadow: 0 4px 10px -3px black
+box-shadow: 0 4px 10px -3px black;
 `
 
 const HeaderTitle = styled.h1`
@@ -44,7 +44,7 @@ left: 87vw;
 bottom: 50px;
 width: 170px;
 height: 150px;
-box-shadow: 0 4px 10px -3px black
+box-shadow: 0 4px 10px -3px black;
 
 ` 
 

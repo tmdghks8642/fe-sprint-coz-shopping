@@ -8,7 +8,7 @@ border-top: 1px solid gray;
 `
 const Footertitle = styled.p`
 margin: 10px;
-color: gray
+color: gray;
 `
 
 function Footer (){
