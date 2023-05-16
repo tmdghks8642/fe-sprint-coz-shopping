@@ -32,9 +32,9 @@ bottom:20px;
 `
 
 
-function ProductItem ({item,idx}) {
+function ProductItem ({item,idx,keys}) {
  const [isOpen, SetIsOpen] = useState(false)
- const [isUrl, SetIsURl] = useState([])
+
 
  const openModal = (isopen)=>{
     SetIsOpen(isopen)
@@ -42,35 +42,33 @@ function ProductItem ({item,idx}) {
 
     return (
         <>
-        <List  onClick={(e)=>{openModal(true) 
-                SetIsURl(e.target.src)
-        }}>
-            <ListImg src={
-                item[idx].image_url !== null ? item[idx].image_url : 
-                item[idx].brand_image_url
-            }/>
-            <ListTitle>{
-                item[idx].title !== null ? item[idx].title :
-                item[idx].brand_name 
-            }</ListTitle>
-            {
-                item[idx].follower !== null ? <PriceOrFallowers>관심고객수</PriceOrFallowers> :
-                item[idx].discountPercentage !== null ? <PriceOrFallowers >{item[idx].discountPercentage+`%`}</PriceOrFallowers> :
-                <PriceOrFallowers ><br></br></PriceOrFallowers>
-            }
-            {
-                item[idx].sub_title !== null ?  <div>{item[idx].sub_title}</div>: 
-                <div><br></br></div>
-            }
-            {
-                item[idx].follower !== null ? <Pf>11{item[idx].follower}</Pf>  : 
-                item[idx].price !==null ? <Pf>{item[idx].price+'원'}</Pf>:
-                <Pf><br></br></Pf>
-            }
-         </List>
-            {
-                isOpen &&(<Modal openModal={openModal} isUrl={isUrl}/>)
-            }
+            <List onClick={(e)=>{openModal(true)}}>
+                <ListImg src={
+                    item[idx].image_url !== null ? item[idx].image_url : 
+                    item[idx].brand_image_url
+                }/>
+                <ListTitle>{
+                    item[idx].title !== null ? item[idx].title :
+                    item[idx].brand_name 
+                }</ListTitle>
+                {
+                    item[idx].follower !== null ? <PriceOrFallowers>관심고객수</PriceOrFallowers> :
+                    item[idx].discountPercentage !== null ? <PriceOrFallowers >{item[idx].discountPercentage+`%`}</PriceOrFallowers> :
+                    <PriceOrFallowers ><br></br></PriceOrFallowers>
+                }
+                {
+                    item[idx].sub_title !== null ?  <div>{item[idx].sub_title}</div>: 
+                    <div><br></br></div>
+                }
+                {
+                    item[idx].follower !== null ? <Pf>11{item[idx].follower}</Pf>  : 
+                    item[idx].price !==null ? <Pf>{item[idx].price+'원'}</Pf>:
+                    <Pf><br></br></Pf>
+                }
+            </List>
+                {
+                    isOpen &&(<Modal item={item} keys={keys} openModal={openModal}/>)
+                }
         </>
     )
 }
