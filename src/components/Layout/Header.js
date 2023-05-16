@@ -3,6 +3,7 @@ import { styled } from "styled-components"
 import { useNavigate } from "react-router-dom"
 import {Bars3Icon, GiftIcon, StarIcon} from '@heroicons/react/24/solid'
 import { useState } from 'react';
+import LogoImg from '../../Image/로고.jpeg'
 
 const HeaderDiv = styled.header`
 position: sticky;
@@ -58,27 +59,32 @@ const MouseClick =()=>{
 
 return(
     <>
-    <HeaderDiv>
-       <HeaderTitle><Logo src={process.env.PUBLIC_URL + `Image/로고.jpeg`}
-       onClick={()=>{navigate('/')}}
-       />  COZ Shopping</HeaderTitle>
-       <HeaderIcon><Bars3Icon width={'50px'} onClick={()=>{
-        MouseClick()
-       }}/></HeaderIcon>
-       {
-           hover?   <MouseOver className='dropdownmenu'>
-      <div>
-       <p className='menu1'> 이승환님, 안녕하세요!</p>
-       </div>
-      <div>
-       <p className='menu2'  onClick={()=>{navigate('/products/list'); MouseClick()}}><GiftIcon className='h-6' /> 상품리스트 페이지</p>
-       </div>
-      <div>
-       <p className='menu3'  onClick={()=>{navigate('/bookmark'); MouseClick()}}><StarIcon className='h-6'/>북마크 페이지</p>
-       </div>
-       </MouseOver> : null
-       }
-    </HeaderDiv>
+        <HeaderDiv>
+            <HeaderTitle>
+                <Logo src={LogoImg}onClick={()=>{navigate('/')}}/> COZ Shopping
+            </HeaderTitle>
+            <HeaderIcon>
+                <Bars3Icon width={'50px'} onClick={()=>{ MouseClick()}}/>
+            </HeaderIcon>
+        {
+                hover? <MouseOver className='dropdownmenu'>
+                    <div>
+                     <p className='menu1'> 이승환님, 안녕하세요!</p>
+                    </div>
+                    <div>
+                        <p className='menu2' onClick={()=>{navigate('/products/list'); MouseClick()}}>
+                            <GiftIcon className='h-6' /> 상품리스트 페이지
+                        </p>
+                    </div>
+                    <div>
+                        <p className='menu3' onClick={()=>{navigate('/bookmark'); MouseClick()}}>
+                            <StarIcon className='h-6'/>북마크 페이지
+                        </p>
+                    </div>
+                    </MouseOver> 
+                    : null
+        }
+        </HeaderDiv>
     </>
 )
 }
