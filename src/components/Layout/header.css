@@ -1,3 +1,8 @@
+.dropdownmenu {
+    position: relative;
+    z-index: 2;
+}
+
 .dropdownmenu > div > p {
     font-size: 15px;
     line-height: 10px;
