@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-
+import Modal from "./Modal";
 
 const List = styled.section`
 display: inline-block;
 width: 16.7vw;
 height: 28vh;
 margin-right: 3rem;
+cursor: pointer;
 `
 const ListImg = styled.img`
 width: 16.7vw;
@@ -32,14 +33,22 @@ bottom:20px;
 
 
 function ProductItem ({item,idx}) {
+ const [isOpen, SetIsOpen] = useState(false)
+ const [isUrl, SetIsURl] = useState([])
+
+ const openModal = (isopen)=>{
+    SetIsOpen(isopen)
+ }
 
     return (
         <>
-        <List onClick={(e)=>console.log(e.target.src)}>
+        <List  onClick={(e)=>{openModal(true) 
+                SetIsURl(e.target.src)
+        }}>
             <ListImg src={
                 item[idx].image_url !== null ? item[idx].image_url : 
                 item[idx].brand_image_url
-                }/>
+            }/>
             <ListTitle>{
                 item[idx].title !== null ? item[idx].title :
                 item[idx].brand_name 
@@ -59,6 +68,9 @@ function ProductItem ({item,idx}) {
                 <Pf><br></br></Pf>
             }
          </List>
+            {
+                isOpen &&(<Modal openModal={openModal} isUrl={isUrl}/>)
+            }
         </>
     )
 }
