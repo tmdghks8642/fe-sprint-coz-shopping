@@ -6,28 +6,26 @@ const IconDiv = styled.div`
 position: absolute;
 width: 400px;
 height: 70px;
-top: 47rem;
-right: 5rem;
+top: 85%;
+right: 10%;
 border-radius: 30px;
 box-shadow: 1px 1px 15px 1px  black ;
 
 
 div {
-    position: absolute;
-    top: 15px;
-    left: 20px;
+     display : flex;
     .staricon{
         width: 40px;
+        padding-left: 20px;
+        padding-bottom: 10px;
         color: ${props => props.ismark ? '#FFD361' : '#DFDFDFCF' };
+    }
+    p {
+      padding-left: 10px;
+      font-size: 23px;
     }
 }
 
-p {
-   position: relative;
-    bottom: 60px;
-    left: 50px;
-  font-size: 23px;
-}
 `
 
 

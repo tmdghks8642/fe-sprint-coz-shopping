@@ -8,12 +8,8 @@ import ProductList from './pages/ProductList';
 import { useEffect, useState } from 'react';
 
 function App() {
- const [Bookmarkitems, SetBookmarkitems] = useState([])
- let getItem = JSON.parse(localStorage.getItem('Items'))
-
- useEffect(()=>{
-  SetBookmarkitems(getItem)
- },[])
+  let getItem = JSON.parse(localStorage.getItem('Items'))
+ const [Bookmarkitems, SetBookmarkitems] = useState(getItem)
 
 
   return (
@@ -23,7 +19,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Main Bookmarkitems={Bookmarkitems} SetBookmarkitems={SetBookmarkitems}/>}/>
           <Route path='/products/list' element={<ProductList SetBookmarkitems={SetBookmarkitems}/>}/>
-          <Route path='/bookmark' element={<Bookmark SetBookmarkitems={SetBookmarkitems}/>}/>
+          <Route path='/bookmark' element={<Bookmark Bookmarkitems={Bookmarkitems} SetBookmarkitems={SetBookmarkitems}/>}/>
         </Routes>
       <Footer/>
     </div>

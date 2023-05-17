@@ -11,7 +11,8 @@ top: 0px;
 margin:0px;
 padding:0px;
 width: 100vw;
-height:7vh;
+height:80px;
+background-color: white;
 box-shadow: 0 4px 10px -3px black;
 z-index: 990;
 `

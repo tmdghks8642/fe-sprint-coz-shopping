@@ -1,11 +1,16 @@
+import { useEffect,useState } from "react";
 import Category from "../components/UI/Category"
 
 
 
 function Bookmark (){
+
+
 return(
     <>
         <Category/>
+
+
     </>
 )
 }

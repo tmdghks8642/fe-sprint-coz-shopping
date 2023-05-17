@@ -54,7 +54,7 @@ bottom:20px;
 
 
 
-function ProductItem ({item,idx,keys,SetIsmark,SetBookmarkitems,SetIsToast}) {
+function ProductItem ({el,SetIsmark,SetBookmarkitems,SetIsToast}) {
  const [isOpen, SetIsOpen] = useState(false)
  const [changecolor,SetchangeColor] = useState(false)
  // 모달창 위치 때문에 사용
@@ -64,14 +64,11 @@ useEffect(()=>{
     SetIsmark(changecolor)
 },[changecolor])
 
- const clickchange = ()=>{
-    SetchangeColor(!changecolor)  
-}
  const openModal = (isopen)=>{
     SetIsOpen(isopen)
  }
 
-//console.log(changecolor)
+
  const saveitems = (props)=>{
     let data = JSON.parse(localStorage.getItem('Items'))
     if(!changecolor){
@@ -92,41 +89,44 @@ useEffect(()=>{
             <List onClick={(e)=>{openModal(true)
             }}>
                 <ListImgDiv changecolor={changecolor} src={
-                    item[idx].image_url !== null ? item[idx].image_url : 
-                    item[idx].brand_image_url
+                    el.image_url !== null ? el.image_url : 
+                    el.brand_image_url
                 }>
-                      <div changecolor={changecolor}>
-                         <StarIcon className="Staricon" changecolor={changecolor} onClick={(e)=>{
+                      <div>
+                         <StarIcon className="Staricon" onClick={(e)=>{
                             e.stopPropagation()
-                            clickchange()
-                            saveitems(item[idx])
+                            // 아이콘 색변경
+                            SetchangeColor(!changecolor) 
+                             // 로컬스토리지 데이터 저장
+                            saveitems(el)
+                            // Toast UI 구현
                             SetIsToast(true)
-                            setTimeout(()=>{SetIsToast(false)},2000)
+                            setTimeout(()=>{SetIsToast(false)},3000)
                             }}/>
                       </div>
                 </ListImgDiv>
                 <ListTitle>{
-                    item[idx].title !== null ? item[idx].title :
-                    item[idx].brand_name 
+                   el.title !== null ? el.title :
+                   el.brand_name 
                 }</ListTitle>
                 {
-                    item[idx].follower !== null ? <PriceOrFallowers>관심고객수</PriceOrFallowers> :
-                    item[idx].discountPercentage !== null ? <PriceOrFallowers color={'#452CDD'} >{item[idx].discountPercentage+`%`}</PriceOrFallowers> :
+                    el.follower !== null ? <PriceOrFallowers>관심고객수</PriceOrFallowers> :
+                    el.discountPercentage !== null ? <PriceOrFallowers color={'#452CDD'} >{el.discountPercentage+`%`}</PriceOrFallowers> :
                     <PriceOrFallowers ><br></br></PriceOrFallowers>
                 }
                 {
-                    item[idx].sub_title !== null ?  <div>{item[idx].sub_title}</div>: 
+                    el.sub_title !== null ?  <div>{el.sub_title}</div>: 
                     <div><br></br></div>
                 }
                 {
-                    item[idx].follower !== null ? <Pf>11{item[idx].follower}</Pf>  : 
-                    item[idx].price !==null ? <Pf>{item[idx].price+'원'}</Pf>:
+                   el.follower !== null ? <Pf>11{el.follower}</Pf>  : 
+                    el.price !==null ? <Pf>{el.price+'원'}</Pf>:
                     <Pf><br></br></Pf>
                 }
             </List>
                 {
-                    isOpen &&(<Modal item={item} idx={idx} location={location} keys={keys} saveitems={saveitems}
-                         openModal={openModal} clickchange={clickchange} changecolor={changecolor} 
+                    isOpen &&(<Modal el={el}  location={location} saveitems={saveitems}
+                         openModal={openModal} changecolor={changecolor} 
                          SetchangeColor={SetchangeColor} SetIsToast={SetIsToast}/>) 
                 }
         </>
