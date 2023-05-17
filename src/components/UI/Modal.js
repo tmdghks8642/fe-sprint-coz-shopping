@@ -1,5 +1,5 @@
 import { styled } from "styled-components"
-import { XMarkIcon } from "@heroicons/react/24/solid"
+import { StarIcon, XMarkIcon } from "@heroicons/react/24/solid"
 
 const BackgroundDiv = styled.div`
 position:fixed;
@@ -8,22 +8,36 @@ left: 0;
 width: 100vw;
 height: 100vh;
 background-color: rgba(0,0,0,0.4);
-z-index: 1;
+z-index: 5;
+
 `
 
 const ModalDiv = styled.div`
 position: absolute;
 top: 50%;
 left: 50%;
-transform: translate(-50%,-20%);
+transform: ${props => props.location ?'translate(-50%,-20%)' : 'translate(20%,-95%)'};
 width: 50rem;
 height: 30rem;
 border-radius: 30px;
 background-image: url(${props => props.itemimage});
-background-size: 100%;
+background-size: cover;
 background-repeat: no-repeat;
 background-position: center;
-z-index: 2;
+z-index: 10;
+
+
+ div {
+     .staricon{
+        position: absolute;
+        top: 395px;
+        left: 4px;
+        width: 50px;
+        color: ${props => props.changecolor ? '#FFD361' : '#DFDFDFCF' };
+        cursor: pointer;
+    }
+
+ }
 `
 
 const IconDiv = styled.div`
@@ -48,26 +62,36 @@ font-weight: 700;
 `
 
 
-function Modal({openModal,keys,item}){
+function Modal({openModal,keys,item,idx,location,changecolor,clickchange,saveitems,SetIsToast}){
+
 
 let itemObj = (item.filter(el=> el.id === keys)[0]) 
 
+console.log(changecolor)
 
 return(
     <>
         <BackgroundDiv onClick={()=>{openModal(false)}}/>
-            <ModalDiv itemimage={
-                itemObj.image_url !== null ? itemObj.image_url : itemObj.brand_image_url
-            }>
-        <IconDiv>
-            <XMarkIcon onClick={()=>{openModal(false)}}/>
-        </IconDiv>
-            <ItemTitle>
-                {
-                itemObj.title !== null ? itemObj.title : itemObj.brand_name
-                }
-            </ItemTitle>
-        </ModalDiv>
+            <ModalDiv location={location} changecolor={changecolor} itemimage={
+                    itemObj.image_url !== null ? itemObj.image_url : itemObj.brand_image_url
+                     }>
+                <IconDiv>
+                    <XMarkIcon onClick={()=>{openModal(false)}}/>
+                </IconDiv>
+                <div changecolor={changecolor} >
+                    <StarIcon className="staricon"  changecolor={changecolor} onClick={()=>{
+                        clickchange()
+                        saveitems(item[idx])
+                        SetIsToast(true)
+                        setTimeout(()=>{SetIsToast(false)},2000)                           
+                    }}/>
+                </div>
+                <ItemTitle>
+                    {
+                    itemObj.title !== null ? itemObj.title : itemObj.brand_name
+                    }
+                </ItemTitle>
+            </ModalDiv>
     </>
 )
 }

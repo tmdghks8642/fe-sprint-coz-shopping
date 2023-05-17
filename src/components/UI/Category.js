@@ -25,7 +25,7 @@ text-align: center;
 font-size: 20px;
 cursor: pointer;
 
-> p{
+p{
     margin-top: 7px;
     margin-bottom: 0;
     
