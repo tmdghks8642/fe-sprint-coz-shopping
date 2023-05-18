@@ -32,9 +32,7 @@ div {
     width: 40px;        
     color: #FFD361
 }
-
 `
-
 const ListTitle =styled.div`
 display:inline-block;
 font-weight: 800;
@@ -53,14 +51,10 @@ bottom:20px;
 
      
 
-function BookmarkComponent ({item,SetIsbookmark,SetBookmarkitems,SetIsToast}) {
+function BookmarkComponent ({item,SetBookmarkitems,SetIsToast}) {
  const [isOpen, SetIsOpen] = useState(false)
  // true & false
  const [ischangebookcolor,Setischangebookcolor] = useState(true)
-
-useEffect(()=>{
-    SetIsbookmark(ischangebookcolor)
-},[ischangebookcolor])
 
 
  const openModal = (isopen)=>{
@@ -86,7 +80,6 @@ useEffect(()=>{
                          <StarIcon className="Staricon"  onClick={(e)=>{
                             e.stopPropagation()
                             Setischangebookcolor(!ischangebookcolor)
-                            //Setchangebookcolor(!changebookcolor) 
                             saveitems(item)
                             SetIsToast(true)
                             setTimeout(()=>{SetIsToast(false)},3000)

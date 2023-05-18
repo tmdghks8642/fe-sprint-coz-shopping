@@ -16,6 +16,7 @@ text-align: center;
 
 
 function ProductList ({SetBookmarkitems}){
+    // 무한스크 사용하기위해
     const target = useRef(null)
     const [allitem,SetAllitem]=useState([])
     const [selectitem, SetSelectitem]= useState('All')
