@@ -9,6 +9,7 @@ height: 70px;
 top: 85%;
 right: 10%;
 border-radius: 30px;
+background-color: white;
 box-shadow: 1px 1px 15px 1px  black ;
 
 

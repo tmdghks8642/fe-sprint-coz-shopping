@@ -49,7 +49,7 @@ const BookmarkListTitle = styled(ProductsListTitle)`
 
 
 function Main ({Bookmarkitems,SetBookmarkitems}){
-const [item,SetItem] = useState([])
+const [items,SetItems] = useState([])
 
 // Toast UI 관리
 const [ismark,SetIsmark] = useState(false)
@@ -65,7 +65,7 @@ const [isToast,SetIsToast] = useState(false)
         }
         return rsp.json()
     })
-    .then(json => SetItem(json))
+    .then(json => SetItems(json))
     .catch(error=> console.error(error))
     },[]) 
 
@@ -81,8 +81,8 @@ return (
                     <ProductsListTitle>상품 리스트</ProductsListTitle>
                         <ProductItems>
                             {
-                                item&&item.filter((el,idx)=> idx <4).map(el=> <ProductItem key={el.id} 
-                                   el={el} SetIsmark={SetIsmark} SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                items&&items.filter((item,idx)=> idx <4).map(item => <ProductItem key={item.id} 
+                                    item={item} SetIsmark={SetIsmark} SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
                                  />)
                             }
                         </ProductItems>
@@ -95,8 +95,8 @@ return (
                         <BookmarkListTitle>북마크 리스트</BookmarkListTitle>
                         <ProductItems>
                                 {
-                                    Bookmarkitems&&Bookmarkitems.filter((el,idx)=> idx <4).map((el,idx)=> <BookmarkComponent key={el.id} 
-                                     el={el} SetIsbookmark={SetIsbookmark} SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}/>)
+                                    Bookmarkitems&&Bookmarkitems.filter((item,idx)=> idx <4).map((item,idx)=> <BookmarkComponent key={item.id} 
+                                    item={item} SetIsbookmark={SetIsbookmark} SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}/>)
                                 } 
                         </ProductItems>    
                 </BookmarkList>

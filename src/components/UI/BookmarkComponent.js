@@ -53,18 +53,15 @@ bottom:20px;
 
      
 
-function BookmarkComponent ({el,SetIsbookmark,SetBookmarkitems,SetIsToast}) {
+function BookmarkComponent ({item,SetIsbookmark,SetBookmarkitems,SetIsToast}) {
  const [isOpen, SetIsOpen] = useState(false)
- const [changebookcolor,Setchangebookcolor] = useState(false)
+ // true & false
+ const [ischangebookcolor,Setischangebookcolor] = useState(true)
 
 useEffect(()=>{
-    SetIsbookmark(changebookcolor)
-    console.log('1',changebookcolor)
-},[changebookcolor])
+    SetIsbookmark(ischangebookcolor)
+},[ischangebookcolor])
 
-const cange = ()=>{
-    Setchangebookcolor(!changebookcolor)
-}
 
  const openModal = (isopen)=>{
     SetIsOpen(isopen)
@@ -72,7 +69,7 @@ const cange = ()=>{
 
  const saveitems = (props)=>{
     let data =  JSON.parse(localStorage.getItem('Items'))
-    data.splice(data.findIndex(el=> el.id ===props.id),1)
+    data.splice(data.findIndex(item=> item.id ===props.id),1)
     SetBookmarkitems(data)
     localStorage.setItem('Items',JSON.stringify(data))
  }
@@ -82,42 +79,42 @@ const cange = ()=>{
             <List onClick={(e)=>{openModal(true)
             }}>
                 <ListImgDiv  src={
-                   el.image_url !== null ? el.image_url : 
-                   el.brand_image_url
+                   item.image_url !== null ? item.image_url : 
+                   item.brand_image_url
                 }>
                       <div >
                          <StarIcon className="Staricon"  onClick={(e)=>{
                             e.stopPropagation()
-                            cange()
+                            Setischangebookcolor(!ischangebookcolor)
                             //Setchangebookcolor(!changebookcolor) 
-                            saveitems(el)
+                            saveitems(item)
                             SetIsToast(true)
                             setTimeout(()=>{SetIsToast(false)},3000)
                             }}/>
                       </div>
                 </ListImgDiv>
                 <ListTitle>{
-                    el.title !== null ?el.title :
-                    el.brand_name 
+                    item.title !== null ?item.title :
+                    item.brand_name 
                 }</ListTitle>
                 {
-                   el.follower !== null ? <PriceOrFallowers>관심고객수</PriceOrFallowers> :
-                   el.discountPercentage !== null ? <PriceOrFallowers >{el.discountPercentage+`%`}</PriceOrFallowers> :
+                   item.follower !== null ? <PriceOrFallowers>관심고객수</PriceOrFallowers> :
+                   item.discountPercentage !== null ? <PriceOrFallowers >{item.discountPercentage+`%`}</PriceOrFallowers> :
                     <PriceOrFallowers ><br></br></PriceOrFallowers>
                 }
                 {
-                    el.sub_title !== null ?  <div>{el.sub_title}</div>: 
+                    item.sub_title !== null ?  <div>{item.sub_title}</div>: 
                     <div><br></br></div>
                 }
                 {
-                    el.follower !== null ? <Pf>11{el.follower}</Pf>  : 
-                    el.price !==null ? <Pf>{el.price+'원'}</Pf>:
+                    item.follower !== null ? <Pf>11{item.follower}</Pf>  : 
+                    item.price !==null ? <Pf>{item.price+'원'}</Pf>:
                     <Pf><br></br></Pf>
                 }
             </List>
                 {
-                    isOpen &&(<Modal el={el} saveitems={saveitems} openModal={openModal} changecolor={changebookcolor}
-                          SetchangeColor={Setchangebookcolor} SetIsToast={SetIsToast}
+                    isOpen &&(<Modal item={item} saveitems={saveitems} openModal={openModal} ischangecolor={ischangebookcolor}
+                        SetIschangeColor={Setischangebookcolor} SetIsToast={SetIsToast}
                           />)
                 }
         </>

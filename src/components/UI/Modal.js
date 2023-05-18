@@ -8,15 +8,16 @@ left: 0;
 width: 100vw;
 height: 100vh;
 background-color: rgba(0,0,0,0.4);
-z-index: 5;
-
+z-index: 10;
 `
 
 const ModalDiv = styled.div`
-position: absolute;
+position: fixed;
 top: 50%;
 left: 50%;
-transform: ${props => props.location ?'translate(-35.5%,-18.5%)' : 'translate(30%,-95%)'};
+right: 0;
+bottom: 0;
+transform: translate(-50%,-50%);
 width: 50rem;
 height: 30rem;
 border-radius: 30px;
@@ -33,7 +34,7 @@ z-index: 10;
         top: 395px;
         left: 4px;
         width: 50px;
-        color: ${props => props.changecolor ? '#FFD361' : '#DFDFDFCF' };
+        color: ${props => props.ischangecolor ? '#FFD361' : '#DFDFDFCF' };
         cursor: pointer;
     }
 
@@ -62,29 +63,29 @@ font-weight: 700;
 `
 
 
-function Modal({openModal,el,location,changecolor,SetchangeColor,saveitems,SetIsToast}){
+function Modal({openModal,item,ischangecolor,SetIschangeColor,saveitems,SetIsToast}){
 
 
 return(
     <>
         <BackgroundDiv onClick={()=>{openModal(false)}}/>
-            <ModalDiv location={location} changecolor={changecolor} itemimage={
-                    el.image_url !== null ? el.image_url : el.brand_image_url
+            <ModalDiv ischangecolor={ischangecolor} itemimage={
+                    item.image_url !== null ? item.image_url : item.brand_image_url
                      }>
                 <IconDiv>
                     <XMarkIcon onClick={()=>{openModal(false)}}/>
                 </IconDiv>
                 <div>
                     <StarIcon className="staricon"  onClick={()=>{
-                        SetchangeColor(!changecolor)
-                        saveitems(el)
+                        SetIschangeColor(!ischangecolor)
+                        saveitems(item)
                         SetIsToast(true)
                         setTimeout(()=>{SetIsToast(false)},2000)                           
                     }}/>
                 </div>
                 <ItemTitle>
                     {
-                    el.title !== null ? el.title : el.brand_name
+                    item.title !== null ? item.title : item.brand_name
                     }
                 </ItemTitle>
             </ModalDiv>

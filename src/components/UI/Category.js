@@ -6,7 +6,7 @@ import Ig2 from '../../Image/카테고리2.jpeg'
 import Ig3 from '../../Image/카테고리3.jpeg'
 import Ig4 from '../../Image/카테고리4.jpeg'
 
-const CategorySection = styled.section`
+const CategorySection = styled.ul`
 display: flex;
 flex-direction: row;
 align-items: center;
@@ -14,12 +14,13 @@ justify-content: center;
 
 `
 
-const CategoryDiv = styled.div`
-height: 140px;
-text-align: center;
-font-size: 20px;
-cursor: pointer;
+const CategoryDiv = styled.li`
 margin: 0 18px;
+text-align: center;
+height: 140px;
+font-size: 20px;
+list-style-type: none;
+cursor: pointer;
 
 p{
     margin-top: 7px;
@@ -40,7 +41,7 @@ border-radius: 50px;
 
 function Category ({SetSelectitem}){
 
-const Type = [ {title :'전체', image: Ig0, type: 'All'},
+const Types = [ {title :'전체', image: Ig0, type: 'All'},
 {title:'상품',image: Ig1 ,type: 'Product'},
 {title:'카테고리',image:Ig2, type:'Category'},
 {title:'기획전',image:Ig3, type:'Exhibition'},
@@ -49,10 +50,10 @@ const Type = [ {title :'전체', image: Ig0, type: 'All'},
 return (
     <CategorySection>
         {
-            Type.map((el)=> 
-                    <CategoryDiv onClick={()=>{SetSelectitem(el.type)}}>
-                        <CategoryImg src={el.image}/>
-                        <p>{el.title}</p>
+            Types.map((type,idx)=> 
+                    <CategoryDiv key={idx} onClick={()=>{SetSelectitem(type.type)}}>
+                        <CategoryImg src={type.image}/>
+                        <p>{type.title}</p>
                     </CategoryDiv>)
         }
     </CategorySection>

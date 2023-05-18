@@ -5,12 +5,11 @@ import Footer from './components/Layout/Footer';
 import Main from './pages/Main'
 import Bookmark from './pages/Bookmark';
 import ProductList from './pages/ProductList';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function App() {
   let getItem = JSON.parse(localStorage.getItem('Items'))
  const [Bookmarkitems, SetBookmarkitems] = useState(getItem)
-
 
   return (
   <>  
@@ -21,7 +20,7 @@ function App() {
           <Route path='/products/list' element={<ProductList SetBookmarkitems={SetBookmarkitems}/>}/>
           <Route path='/bookmark' element={<Bookmark Bookmarkitems={Bookmarkitems} SetBookmarkitems={SetBookmarkitems}/>}/>
         </Routes>
-      <Footer/>
+      <Footer />
     </div>
   </>
   );
