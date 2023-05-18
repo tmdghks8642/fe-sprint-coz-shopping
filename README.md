@@ -1,6 +1,9 @@
 # 코드스테이츠 Coz-Shopping-Project 프로젝트
 코드스테이츠 프론트엔트 44기 솔로 프로젝트 입니다.
 
+첫 프로젝트라 군데군데 버그가 있습니다!😂
+![May-18-2023 22-55-24](https://github.com/tmdghks8642/fe-sprint-coz-shopping/assets/119275581/0682dc32-a20f-4bc1-8170-329a94012699)
+
 ## Stack
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white"/>
 <img src="https://img.shields.io/badge/Styled-components-DB7093?style=flat-square&logo=styledcomponents&logoColor=white"/>
