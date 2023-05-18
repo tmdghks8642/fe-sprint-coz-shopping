@@ -50,10 +50,9 @@ const BookmarkListTitle = styled(ProductsListTitle)`
 
 function Main ({Bookmarkitems,SetBookmarkitems}){
 const [items,SetItems] = useState([])
-
 // Toast UI 관리
 const [ismark,SetIsmark] = useState(false)
-const [isbookmark,SetIsbookmark] = useState(true)
+//const [isbookmark,SetIsbookmark] = useState(true)
 const [isToast,SetIsToast] = useState(false)
 
 
@@ -96,7 +95,7 @@ return (
                         <ProductItems>
                                 {
                                     Bookmarkitems&&Bookmarkitems.filter((item,idx)=> idx <4).map((item,idx)=> <BookmarkComponent key={item.id} 
-                                    item={item} SetIsbookmark={SetIsbookmark} SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}/>)
+                                    item={item}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}/>)
                                 } 
                         </ProductItems>    
                 </BookmarkList>

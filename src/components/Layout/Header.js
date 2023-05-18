@@ -43,12 +43,12 @@ cursor: pointer;
 `
 const MouseOver = styled.div`
 position: relative;
-z-index: 100;
 border-radius: 20px;
 left: 87vw;
 bottom: 50px;
 width: 170px;
 height: 150px;
+background-color: white;
 box-shadow: 0 4px 10px -3px black;
 
 p {
