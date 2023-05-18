@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import Modal from "./Modal";
 import { StarIcon } from "@heroicons/react/24/solid";
-import Toast from './Toast'
+import Modal from "./Modal";
 
 const List = styled.li`
 display: inline-block;
@@ -30,7 +29,7 @@ div {
 
 .Staricon {
     width: 40px;        
-    color: ${props => props.changecolor ? '#FFD361' : '#DFDFDFCF' };
+    color: ${props => props.ischangecolor ? '#FFD361' : '#DFDFDFCF' };
 }
 `
 
@@ -46,7 +45,7 @@ margin-bottom: 0.5rem;
 color : ${props => props.color ? props.color: 'black'};
 font-weight: 800;
 `
-const Pf = styled.div`
+const PriceOrFallower = styled.div`
 float:right;
 position:relative;
 bottom:20px;
@@ -54,34 +53,29 @@ bottom:20px;
 
 
 
-function ProductItem ({item,idx,keys,SetIsmark,SetBookmarkitems,SetIsToast}) {
+function ProductItem ({item,SetIsmark,SetBookmarkitems,SetIsToast}) {
  const [isOpen, SetIsOpen] = useState(false)
- const [changecolor,SetchangeColor] = useState(false)
- // 모달창 위치 때문에 사용
- const [location] = useState(true)
+ const [ischangecolor,SetIschangeColor] = useState(false)
 
 useEffect(()=>{
-    SetIsmark(changecolor)
-},[changecolor])
+    SetIsmark(ischangecolor)
+},[ischangecolor])
 
- const clickchange = ()=>{
-    SetchangeColor(!changecolor)  
-}
  const openModal = (isopen)=>{
     SetIsOpen(isopen)
  }
 
-//console.log(changecolor)
+
  const saveitems = (props)=>{
     let data = JSON.parse(localStorage.getItem('Items'))
-    if(!changecolor){
-        if(data.filter(el=>el.id === props.id).length === 0){
+    if(!ischangecolor){
+        if(data.filter(item=>item.id === props.id).length === 0){
         data.unshift(props)
         SetBookmarkitems(data)
         localStorage.setItem('Items',JSON.stringify(data))
         }
     }else{
-        data.splice(data.findIndex(el=> el.id ===props.id),1)
+        data.splice(data.findIndex(item=> item.id ===props.id),1)
         SetBookmarkitems(data)
         localStorage.setItem('Items',JSON.stringify(data))
     }
@@ -89,45 +83,48 @@ useEffect(()=>{
 
     return (
         <>  
-            <List onClick={(e)=>{openModal(true)
+            <List onClick={()=>{openModal(true)
             }}>
-                <ListImgDiv changecolor={changecolor} src={
-                    item[idx].image_url !== null ? item[idx].image_url : 
-                    item[idx].brand_image_url
+                <ListImgDiv ischangecolor={ischangecolor} src={
+                    item.image_url !== null ? item.image_url : 
+                    item.brand_image_url
                 }>
-                      <div changecolor={changecolor}>
-                         <StarIcon className="Staricon" changecolor={changecolor} onClick={(e)=>{
-                            e.stopPropagation()
-                            clickchange()
-                            saveitems(item[idx])
+                      <div>
+                         <StarIcon className="Staricon" onClick={(event)=>{
+                            event.stopPropagation()
+                            // 아이콘 색변경
+                            SetIschangeColor(!ischangecolor) 
+                             // 로컬스토리지 데이터 저장
+                            saveitems(item)
+                            // Toast UI 구현
                             SetIsToast(true)
-                            setTimeout(()=>{SetIsToast(false)},2000)
+                            setTimeout(()=>{SetIsToast(false)},3000)
                             }}/>
                       </div>
                 </ListImgDiv>
                 <ListTitle>{
-                    item[idx].title !== null ? item[idx].title :
-                    item[idx].brand_name 
+                   item.title !== null ? item.title :
+                   item.brand_name 
                 }</ListTitle>
                 {
-                    item[idx].follower !== null ? <PriceOrFallowers>관심고객수</PriceOrFallowers> :
-                    item[idx].discountPercentage !== null ? <PriceOrFallowers color={'#452CDD'} >{item[idx].discountPercentage+`%`}</PriceOrFallowers> :
+                    item.follower !== null ? <PriceOrFallowers>관심고객수</PriceOrFallowers> :
+                    item.discountPercentage !== null ? <PriceOrFallowers color={'#452CDD'} >{item.discountPercentage+`%`}</PriceOrFallowers> :
                     <PriceOrFallowers ><br></br></PriceOrFallowers>
                 }
                 {
-                    item[idx].sub_title !== null ?  <div>{item[idx].sub_title}</div>: 
+                    item.sub_title !== null ?  <div>{item.sub_title}</div>: 
                     <div><br></br></div>
                 }
                 {
-                    item[idx].follower !== null ? <Pf>11{item[idx].follower}</Pf>  : 
-                    item[idx].price !==null ? <Pf>{item[idx].price+'원'}</Pf>:
-                    <Pf><br></br></Pf>
+                   item.follower !== null ? <PriceOrFallower>11{item.follower}</PriceOrFallower>  : 
+                   item.price !==null ? <PriceOrFallower>{item.price+'원'}</PriceOrFallower>:
+                    <PriceOrFallower><br></br></PriceOrFallower>
                 }
             </List>
                 {
-                    isOpen &&(<Modal item={item} idx={idx} location={location} keys={keys} saveitems={saveitems}
-                         openModal={openModal} clickchange={clickchange} changecolor={changecolor} 
-                         SetchangeColor={SetchangeColor} SetIsToast={SetIsToast}/>) 
+                    isOpen &&(<Modal item={item} saveitems={saveitems}
+                         openModal={openModal} ischangecolor={ischangecolor} 
+                         SetIschangeColor={SetIschangeColor} SetIsToast={SetIsToast}/>) 
                 }
         </>
     )

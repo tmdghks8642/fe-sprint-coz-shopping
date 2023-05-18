@@ -6,23 +6,20 @@ import Ig2 from '../../Image/카테고리2.jpeg'
 import Ig3 from '../../Image/카테고리3.jpeg'
 import Ig4 from '../../Image/카테고리4.jpeg'
 
-const CategorySection = styled.section`
-position: relative;
+const CategorySection = styled.ul`
 display: flex;
 flex-direction: row;
 align-items: center;
-justify-content: space-around;
+justify-content: center;
 
-left: 50vw;
-transform: translate(-50%,-38%);
-height: 100vh;
-width: 650px;
 `
 
-const CategoryDiv = styled.div`
-height: 140px;
+const CategoryDiv = styled.li`
+margin: 0 18px;
 text-align: center;
+height: 140px;
 font-size: 20px;
+list-style-type: none;
 cursor: pointer;
 
 p{
@@ -42,30 +39,23 @@ height: 90px;
 border-radius: 50px;
 `
 
-function Category (){
+function Category ({SetSelectitem}){
+
+const Types = [ {title :'전체', image: Ig0, type: 'All'},
+{title:'상품',image: Ig1 ,type: 'Product'},
+{title:'카테고리',image:Ig2, type:'Category'},
+{title:'기획전',image:Ig3, type:'Exhibition'},
+{title:'브랜드',image:Ig4, type :'Brand'}] 
 
 return (
     <CategorySection>
-        <CategoryDiv>
-            <CategoryImg src={Ig0}/>
-            <p>전체</p>
-        </CategoryDiv>
-        <CategoryDiv>
-            <CategoryImg src={Ig1}/>
-            <p>상품</p>
-        </CategoryDiv>
-        <CategoryDiv>
-            <CategoryImg src={Ig2}/>
-            <p>카테고리</p>
-        </CategoryDiv>
-        <CategoryDiv>
-            <CategoryImg src={Ig3}/>
-            <p>기획전</p>
-        </CategoryDiv>
-        <CategoryDiv>
-            <CategoryImg src={Ig4}/>
-            <p>브랜드</p>
-        </CategoryDiv>    
+        {
+            Types.map((type,idx)=> 
+                    <CategoryDiv key={idx} onClick={()=>{SetSelectitem(type.type)}}>
+                        <CategoryImg src={type.image}/>
+                        <p>{type.title}</p>
+                    </CategoryDiv>)
+        }
     </CategorySection>
 )
 }

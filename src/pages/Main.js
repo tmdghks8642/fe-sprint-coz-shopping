@@ -11,8 +11,8 @@ const Mainpage = styled.div`
 position: relative;
 height: 100vh;
 width: 100vw;
-z-index: 40;
 
+// 저장된 북마크 없을 시 
 .nobookmark {
     position: absolute;
     bottom: 15rem;
@@ -49,8 +49,11 @@ const BookmarkListTitle = styled(ProductsListTitle)`
 
 
 function Main ({Bookmarkitems,SetBookmarkitems}){
-const [item,SetItem] = useState([])
-const [ismark,SetIsmark] = useState()
+const [items,SetItems] = useState([])
+
+// Toast UI 관리
+const [ismark,SetIsmark] = useState(false)
+const [isbookmark,SetIsbookmark] = useState(true)
 const [isToast,SetIsToast] = useState(false)
 
 
@@ -62,11 +65,14 @@ const [isToast,SetIsToast] = useState(false)
         }
         return rsp.json()
     })
-    .then(json => SetItem(json))
+    .then(json => SetItems(json))
     .catch(error=> console.error(error))
     },[]) 
 
-     console.log(ismark)
+// ismark 가 상품리스트에만 의도대로 잘 적용 됨 
+// 북마크 리스트의 경우에는 항상 true를 반환한다. 
+// 해결법을 모르겠다,,, 설계를 잘 못 한것 같다
+
 
 return (
     <>  
@@ -75,10 +81,8 @@ return (
                     <ProductsListTitle>상품 리스트</ProductsListTitle>
                         <ProductItems>
                             {
-                                item&&item.filter((el,idx)=> idx <4).map((el,idx)=> <ProductItem 
-                                key={el.id} keys={el.id} item={item} idx={idx}
-                                 ismark={ismark} SetIsmark={SetIsmark} Bookmarkitems={Bookmarkitems} SetBookmarkitems={SetBookmarkitems}
-                                 SetIsToast={SetIsToast}
+                                items&&items.filter((item,idx)=> idx <4).map(item => <ProductItem key={item.id} 
+                                    item={item} SetIsmark={SetIsmark} SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
                                  />)
                             }
                         </ProductItems>
@@ -91,9 +95,8 @@ return (
                         <BookmarkListTitle>북마크 리스트</BookmarkListTitle>
                         <ProductItems>
                                 {
-                                    Bookmarkitems&&Bookmarkitems.filter((el,idx)=> idx <4).map((el,idx)=> <BookmarkComponent 
-                                    key={el.id} keys={el.id} Bookmarkitems={Bookmarkitems} idx={idx}  ismark={ismark}
-                                    SetIsmark={SetIsmark} SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}/>)
+                                    Bookmarkitems&&Bookmarkitems.filter((item,idx)=> idx <4).map((item,idx)=> <BookmarkComponent key={item.id} 
+                                    item={item} SetIsbookmark={SetIsbookmark} SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}/>)
                                 } 
                         </ProductItems>    
                 </BookmarkList>
@@ -102,6 +105,7 @@ return (
                {
                    isToast? <Toast ismark={ismark}/>: null
                } 
+         
        
         </Mainpage>
     </>
