@@ -11,10 +11,6 @@ padding-bottom: 600px;
 
 // 상품 리스트 스타일
 const BookmarkList = styled.main`
-display: flex;
-text-align: center;
-
-
 ul{
     margin: 0;
 }

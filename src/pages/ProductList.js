@@ -10,20 +10,28 @@ width: 100vw;
 
 // 상품 리스트 스타일
 const ProductsList = styled.main`
-display: flex;
-text-align: center;
+`
+const LodingDiv = styled.div`
+font-size: 100px;
+font-weight: 800;
+padding-left: 700px;
+padding-top: 300px;
 `
 
 
 function ProductList ({SetBookmarkitems}){
     // 무한스크 사용하기위해
     const target = useRef(null)
+    
     const [allitem,SetAllitem]=useState([])
     const [selectitem, SetSelectitem]= useState('All')
-    const [ismark,SetIsmark] = useState()
+    const [ismark,SetIsmark] = useState(false)
     const [isToast,SetIsToast] = useState(false)
+    const [isLoding,SetIsLoding] = useState(null)
 
     useEffect(()=>{
+        SetIsLoding(true)
+
         fetch('http://cozshopping.codestates-seb.link/api/v1/products')
         .then(rsp=> {
             if(!rsp.ok){
@@ -33,6 +41,7 @@ function ProductList ({SetBookmarkitems}){
         })
         .then(json => SetAllitem(json))
         .catch(error=> console.error(error))
+        SetIsLoding(false)
         },[]) 
 
         useEffect(()=>{
@@ -57,47 +66,50 @@ function ProductList ({SetBookmarkitems}){
 
   
     return(
-        <>
-            <ProductPage>
-                <Category SetSelectitem={SetSelectitem}/> 
-                    <ProductsList>
-                        <ul>
-                            {
-                                selectitem === 'All' ? 
-                                allcategory.map(item=><ProductItem  key={item.id} 
-                                    item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
-                                    />) 
-                                :  selectitem === 'Product' ? 
-                                allitem.filter((item,idx)=> item.type === 'Product').map(item=><ProductItem  key={item.id} 
-                                    item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
-                                    />) 
-                                : null
-                            }
-                            {
-                                selectitem === 'Category' ? 
-                                allitem.filter((item,idx)=> item.type === 'Category').map(item=><ProductItem  key={item.id} 
-                                    item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
-                                    />) 
-                                : selectitem === 'Exhibition' ? 
-                                allitem.filter((item,idx)=> item.type === 'Exhibition').map(item=><ProductItem  key={item.id} 
-                                    item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
-                                    />) 
-                                : null
-                            }
-                            {
-                                selectitem === 'Brand' ? 
-                                allitem.filter((item,idx)=> item.type === 'Brand').map(item=><ProductItem  key={item.id} 
-                                    item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
-                                    />) 
-                                : null
-                            }
-                        </ul>
-                    </ProductsList>
-                {
-                    isToast? <Toast ismark={ismark}/>: null
-                } 
-            </ProductPage> 
-            <div ref={target}>1</div>
+        <>  
+            {
+                    isLoding ? <LodingDiv> Loding.....</LodingDiv>  :  
+                <ProductPage>
+                    <Category SetSelectitem={SetSelectitem}/> 
+                        <ProductsList>
+                            <ul>
+                                {
+                                    selectitem === 'All' ? 
+                                    allcategory.map(item=><ProductItem  key={item.id} 
+                                        item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                        />) 
+                                    :  selectitem === 'Product' ? 
+                                    allitem.filter((item,idx)=> item.type === 'Product').map(item=><ProductItem  key={item.id} 
+                                        item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                        />) 
+                                    : null
+                                }
+                                {
+                                    selectitem === 'Category' ? 
+                                    allitem.filter((item,idx)=> item.type === 'Category').map(item=><ProductItem  key={item.id} 
+                                        item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                        />) 
+                                    : selectitem === 'Exhibition' ? 
+                                    allitem.filter((item,idx)=> item.type === 'Exhibition').map(item=><ProductItem  key={item.id} 
+                                        item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                        />) 
+                                    : null
+                                }
+                                {
+                                    selectitem === 'Brand' ? 
+                                    allitem.filter((item,idx)=> item.type === 'Brand').map(item=><ProductItem  key={item.id} 
+                                        item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                        />) 
+                                    : null
+                                }
+                            </ul>
+                        </ProductsList>
+                    {
+                        isToast? <Toast ismark={ismark}/>: null
+                    } 
+                </ProductPage> 
+            }
+            <div ref={target}></div>
          </>
     )
 
