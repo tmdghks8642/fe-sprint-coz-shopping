@@ -51,20 +51,20 @@ bottom:20px;
 
      
 
-function BookmarkComponent ({item,SetBookmarkitems,SetIsToast}) {
- const [isOpen, SetIsOpen] = useState(false)
+function BookmarkComponent ({item,setBookmarkitems,setIsToast}) {
+ const [isOpen, setIsOpen] = useState(false)
  // true & false
- const [ischangebookcolor,Setischangebookcolor] = useState(true)
+ const [isChangeBookColor,setIsChangeBookColor] = useState(true)
 
 
  const openModal = (isopen)=>{
-    SetIsOpen(isopen)
+    setIsOpen(isopen)
  }
 
  const saveitems = (props)=>{
     let data =  JSON.parse(localStorage.getItem('Items'))
     data.splice(data.findIndex(item=> item.id ===props.id),1)
-    SetBookmarkitems(data)
+    setBookmarkitems(data)
     localStorage.setItem('Items',JSON.stringify(data))
  }
 
@@ -79,10 +79,10 @@ function BookmarkComponent ({item,SetBookmarkitems,SetIsToast}) {
                       <div >
                          <StarIcon className="Staricon"  onClick={(e)=>{
                             e.stopPropagation()
-                            Setischangebookcolor(!ischangebookcolor)
+                            setIsChangeBookColor(!isChangeBookColor)
                             saveitems(item)
-                            SetIsToast(true)
-                            setTimeout(()=>{SetIsToast(false)},3000)
+                            setIsToast(true)
+                            setTimeout(()=>{setIsToast(false)},3000)
                             }}/>
                       </div>
                 </ListImgDiv>
@@ -106,8 +106,8 @@ function BookmarkComponent ({item,SetBookmarkitems,SetIsToast}) {
                 }
             </List>
                 {
-                    isOpen &&(<Modal item={item} saveitems={saveitems} openModal={openModal} ischangecolor={ischangebookcolor}
-                        SetIschangeColor={Setischangebookcolor} SetIsToast={SetIsToast}
+                    isOpen &&(<Modal item={item} saveitems={saveitems} openModal={openModal} isChangeColor={isChangeBookColor}
+                        setIschangeColor={setIsChangeBookColor} setIsToast={setIsToast}
                           />)
                 }
         </>

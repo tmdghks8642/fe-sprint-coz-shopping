@@ -53,30 +53,30 @@ bottom:20px;
 
 
 
-function ProductItem ({item,SetIsmark,SetBookmarkitems,SetIsToast}) {
- const [isOpen, SetIsOpen] = useState(false)
- const [ischangecolor,SetIschangeColor] = useState(false)
+function ProductItem ({item,setIsmark,setBookmarkitems,setIsToast}) {
+ const [isOpen, setIsOpen] = useState(false)
+ const [isChangeColor,setIsChangeColor] = useState(false)
 
 useEffect(()=>{
-    SetIsmark(ischangecolor)
-},[ischangecolor])
+    setIsmark(isChangeColor)
+},[isChangeColor])
 
  const openModal = (isopen)=>{
-    SetIsOpen(isopen)
+    setIsOpen(isopen)
  }
 
 
  const saveitems = (props)=>{
     let data = JSON.parse(localStorage.getItem('Items'))
-    if(!ischangecolor){
+    if(!isChangeColor){
         if(data.filter(item=>item.id === props.id).length === 0){
         data.unshift(props)
-        SetBookmarkitems(data)
+        setBookmarkitems(data)
         localStorage.setItem('Items',JSON.stringify(data))
         }
     }else{
         data.splice(data.findIndex(item=> item.id ===props.id),1)
-        SetBookmarkitems(data)
+        setBookmarkitems(data)
         localStorage.setItem('Items',JSON.stringify(data))
     }
  }
@@ -85,7 +85,7 @@ useEffect(()=>{
         <>  
             <List onClick={()=>{openModal(true)
             }}>
-                <ListImgDiv ischangecolor={ischangecolor} src={
+                <ListImgDiv ischangecolor={isChangeColor} src={
                     item.image_url !== null ? item.image_url : 
                     item.brand_image_url
                 }>
@@ -93,12 +93,12 @@ useEffect(()=>{
                          <StarIcon className="Staricon" onClick={(event)=>{
                             event.stopPropagation()
                             // 아이콘 색변경
-                            SetIschangeColor(!ischangecolor) 
+                            setIsChangeColor(!isChangeColor) 
                              // 로컬스토리지 데이터 저장
                             saveitems(item)
                             // Toast UI 구현
-                            SetIsToast(true)
-                            setTimeout(()=>{SetIsToast(false)},3000)
+                            setIsToast(true)
+                            setTimeout(()=>{setIsToast(false)},3000)
                             }}/>
                       </div>
                 </ListImgDiv>
@@ -123,8 +123,8 @@ useEffect(()=>{
             </List>
                 {
                     isOpen &&(<Modal item={item} saveitems={saveitems}
-                         openModal={openModal} ischangecolor={ischangecolor} 
-                         SetIschangeColor={SetIschangeColor} SetIsToast={SetIsToast}/>) 
+                         openModal={openModal} isChangeColor={isChangeColor} 
+                         setIsChangeColor={setIsChangeColor} setIsToast={setIsToast}/>) 
                 }
         </>
     )

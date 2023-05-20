@@ -16,44 +16,56 @@ ul{
 }
 `
 
-function Bookmark ({Bookmarkitems,SetBookmarkitems}){
-    const [selectitem, SetSelectitem]= useState('All')
-    const [ismark,SetIsmark] = useState(false)
-    const [isToast,SetIsToast] = useState(false)
+function Bookmark ({bookmarkitems,setBookmarkitems}){
+    const [selectitem, setSelectitem]= useState('All')
+    const [ismark,setIsmark] = useState(false)
+    const [isToast,setIsToast] = useState(false)
+
+    const categoryTitle = {
+        ALL : 'All',
+        PRODUCT: 'Product',
+        CATEGORY: 'Category',
+        EXHIBITION: 'Exhibition',
+        BRAND : 'Brand'
+     }   
+     Object.freeze(categoryTitle);
+    
+    const {ALL,PRODUCT,CATEGORY,EXHIBITION,BRAND} = categoryTitle
+
 
 
 return(
     <>
         <BookmarktPage> 
-            <Category SetSelectitem={SetSelectitem}/> 
+            <Category setSelectitem={setSelectitem}/> 
             <BookmarkList>
                 <ul>
                   {
-                    selectitem === 'All' ? 
-                    Bookmarkitems.map(item=><BookmarkComponent  key={item.id} 
-                    item={item}   SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                    selectitem === ALL ? 
+                    bookmarkitems.map(item=><BookmarkComponent  key={item.id} 
+                    item={item}   setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}
                         />) 
-                    : selectitem === 'Product' ? 
-                    Bookmarkitems.filter((item,idx)=> item.type === 'Product').map(item=><BookmarkComponent  key={item.id} 
-                    item={item}   SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                    : selectitem === PRODUCT ? 
+                    bookmarkitems.filter((item,idx)=> item.type === 'Product').map(item=><BookmarkComponent  key={item.id} 
+                    item={item}   setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}
                         />) 
                     : null
                   } 
                   {
-                    selectitem === 'Category' ? 
-                    Bookmarkitems.filter((item,idx)=> item.type === 'Category').map(item=><BookmarkComponent  key={item.id} 
-                     item={item}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                    selectitem === CATEGORY ? 
+                    bookmarkitems.filter((item,idx)=> item.type === 'Category').map(item=><BookmarkComponent  key={item.id} 
+                     item={item}  setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}
                         />) 
-                    : selectitem === 'Exhibition' ? 
-                    Bookmarkitems.filter((item,idx)=> item.type === 'Exhibition').map(item=><BookmarkComponent  key={item.id} 
-                    item={item}   SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                    : selectitem === EXHIBITION ? 
+                    bookmarkitems.filter((item,idx)=> item.type === 'Exhibition').map(item=><BookmarkComponent  key={item.id} 
+                    item={item}   setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}
                         />) 
                     : null
                     }
                     {
-                    selectitem === 'Brand' ? 
-                    Bookmarkitems.filter((item,idx)=> item.type === 'Brand').map(item=><BookmarkComponent  key={item.id} 
-                    item={item}   SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                    selectitem === BRAND ? 
+                    bookmarkitems.filter((item,idx)=> item.type === 'Brand').map(item=><BookmarkComponent  key={item.id} 
+                    item={item}   setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}
                         />) 
                     : null
                     } 

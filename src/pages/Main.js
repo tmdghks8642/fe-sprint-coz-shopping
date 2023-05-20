@@ -48,12 +48,12 @@ const BookmarkListTitle = styled(ProductsListTitle)`
 `
 
 
-function Main ({Bookmarkitems,SetBookmarkitems}){
-const [items,SetItems] = useState([])
+function Main ({bookmarkitems,setBookmarkitems}){
+const [items,setItems] = useState([])
 // Toast UI 관리
-const [ismark,SetIsmark] = useState(false)
+const [ismark,setIsmark] = useState(false)
 //const [isbookmark,SetIsbookmark] = useState(true)
-const [isToast,SetIsToast] = useState(false)
+const [isToast,setIsToast] = useState(false)
 
 
     useEffect(()=>{
@@ -64,7 +64,7 @@ const [isToast,SetIsToast] = useState(false)
         }
         return rsp.json()
     })
-    .then(json => SetItems(json))
+    .then(json => setItems(json))
     .catch(error=> console.error(error))
     },[]) 
 
@@ -81,7 +81,7 @@ return (
                         <ProductItems>
                             {
                                 items&&items.filter((item,idx)=> idx <4).map(item => <ProductItem key={item.id} 
-                                    item={item} SetIsmark={SetIsmark} SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                    item={item} setIsmark={setIsmark} setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}
                                  />)
                             }
                         </ProductItems>
@@ -89,13 +89,13 @@ return (
 
               {
 
-                Bookmarkitems.length === 0 ? <p className="nobookmark">저장된 북마크가 없습니다.</p> :
+                bookmarkitems.length === 0 ? <p className="nobookmark">저장된 북마크가 없습니다.</p> :
                     <BookmarkList>
                         <BookmarkListTitle>북마크 리스트</BookmarkListTitle>
                         <ProductItems>
                                 {
-                                    Bookmarkitems&&Bookmarkitems.filter((item,idx)=> idx <4).map((item,idx)=> <BookmarkComponent key={item.id} 
-                                    item={item}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}/>)
+                                    bookmarkitems&&bookmarkitems.filter((item,idx)=> idx <4).map(item=> <BookmarkComponent key={item.id} 
+                                    item={item}  setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}/>)
                                 } 
                         </ProductItems>    
                 </BookmarkList>

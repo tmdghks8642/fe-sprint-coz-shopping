@@ -40,7 +40,9 @@ height: 90px;
 border-radius: 50px;
 `
 
-function Category ({SetSelectitem}){
+function Category ({setSelectitem}){
+
+
 
 const Types = [ {title :'전체', image: Ig0, type: 'All'},
 {title:'상품',image: Ig1 ,type: 'Product'},
@@ -52,7 +54,7 @@ return (
     <CategorySection>
         {
             Types.map((type,idx)=> 
-                    <CategoryDiv key={idx} onClick={()=>{SetSelectitem(type.type)}}>
+                    <CategoryDiv key={idx} onClick={()=>{setSelectitem(type.type)}}>
                         <CategoryImg src={type.image}/>
                         <p>{type.title}</p>
                     </CategoryDiv>)
