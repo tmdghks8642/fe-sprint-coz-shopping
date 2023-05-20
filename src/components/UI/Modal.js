@@ -63,13 +63,13 @@ font-weight: 700;
 `
 
 
-function Modal({openModal,item,ischangecolor,SetIschangeColor,saveitems,SetIsToast}){
+function Modal({openModal,item,isChangeColor,setIsChangeColor,saveitems,setIsToast}){
 
 
 return(
     <>
         <BackgroundDiv onClick={()=>{openModal(false)}}/>
-            <ModalDiv ischangecolor={ischangecolor} itemimage={
+            <ModalDiv ischangecolor={isChangeColor} itemimage={
                     item.image_url !== null ? item.image_url : item.brand_image_url
                      }>
                 <IconDiv>
@@ -77,10 +77,10 @@ return(
                 </IconDiv>
                 <div>
                     <StarIcon className="staricon"  onClick={()=>{
-                        SetIschangeColor(!ischangecolor)
+                        setIsChangeColor(!isChangeColor)
                         saveitems(item)
-                        SetIsToast(true)
-                        setTimeout(()=>{SetIsToast(false)},2000)                           
+                        setIsToast(true)
+                        setTimeout(()=>{setIsToast(false)},2000)                           
                     }}/>
                 </div>
                 <ItemTitle>

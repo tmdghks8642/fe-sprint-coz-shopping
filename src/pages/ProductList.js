@@ -19,18 +19,29 @@ padding-top: 300px;
 `
 
 
-function ProductList ({SetBookmarkitems}){
+function ProductList ({setBookmarkitems}){
     // 무한스크 사용하기위해
     const target = useRef(null)
     
-    const [allitem,SetAllitem]=useState([])
-    const [selectitem, SetSelectitem]= useState('All')
-    const [ismark,SetIsmark] = useState(false)
-    const [isToast,SetIsToast] = useState(false)
-    const [isLoding,SetIsLoding] = useState(null)
+    const [allitem,setAllitem]=useState([])
+    const [selectitem, setSelectitem]= useState('All')
+    const [ismark,setIsmark] = useState(false)
+    const [isToast,setIsToast] = useState(false)
+    const [isLoding,setIsLoding] = useState(null)
+
+    const categoryTitle = {
+        ALL : 'All',
+        PRODUCT: 'Product',
+        CATEGORY: 'Category',
+        EXHIBITION: 'Exhibition',
+        BRAND : 'Brand'
+     }   
+     Object.freeze(categoryTitle);
+    
+    const {ALL,PRODUCT,CATEGORY,EXHIBITION,BRAND} = categoryTitle
 
     useEffect(()=>{
-        SetIsLoding(true)
+        setIsLoding(true)
 
         fetch('http://cozshopping.codestates-seb.link/api/v1/products')
         .then(rsp=> {
@@ -39,9 +50,9 @@ function ProductList ({SetBookmarkitems}){
             }
             return rsp.json()
         })
-        .then(json => SetAllitem(json))
+        .then(json => setAllitem(json))
         .catch(error=> console.error(error))
-        SetIsLoding(false)
+        setIsLoding(false)
         },[]) 
 
         useEffect(()=>{
@@ -64,41 +75,45 @@ function ProductList ({SetBookmarkitems}){
           
           const observer = new IntersectionObserver(callback, options)
 
+
+
+          
+
   
     return(
         <>  
             {
                     isLoding ? <LodingDiv> Loding.....</LodingDiv>  :  
                 <ProductPage>
-                    <Category SetSelectitem={SetSelectitem}/> 
+                    <Category setSelectitem={setSelectitem}/> 
                         <ProductsList>
                             <ul>
                                 {
-                                    selectitem === 'All' ? 
+                                    selectitem === ALL ? 
                                     allcategory.map(item=><ProductItem  key={item.id} 
-                                        item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                        item={item} setIsmark={setIsmark}  setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}
                                         />) 
-                                    :  selectitem === 'Product' ? 
+                                    :  selectitem === PRODUCT ? 
                                     allitem.filter((item,idx)=> item.type === 'Product').map(item=><ProductItem  key={item.id} 
-                                        item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                        item={item} setIsmark={setIsmark}  setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}
                                         />) 
                                     : null
                                 }
                                 {
-                                    selectitem === 'Category' ? 
+                                    selectitem === CATEGORY ? 
                                     allitem.filter((item,idx)=> item.type === 'Category').map(item=><ProductItem  key={item.id} 
-                                        item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                        item={item} setIsmark={setIsmark}  setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}
                                         />) 
-                                    : selectitem === 'Exhibition' ? 
+                                    : selectitem === EXHIBITION ? 
                                     allitem.filter((item,idx)=> item.type === 'Exhibition').map(item=><ProductItem  key={item.id} 
-                                        item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                        item={item} setIsmark={setIsmark}  setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}
                                         />) 
                                     : null
                                 }
                                 {
-                                    selectitem === 'Brand' ? 
+                                    selectitem === BRAND ? 
                                     allitem.filter((item,idx)=> item.type === 'Brand').map(item=><ProductItem  key={item.id} 
-                                        item={item} SetIsmark={SetIsmark}  SetBookmarkitems={SetBookmarkitems} SetIsToast={SetIsToast}
+                                        item={item} setIsmark={setIsmark}  setBookmarkitems={setBookmarkitems} setIsToast={setIsToast}
                                         />) 
                                     : null
                                 }
